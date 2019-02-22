@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-db-migrations",
+  "version": "1.0.0",
+  "description": "A NodeJS package to run database migrations and versioning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viniciusls/nodejs-db-migrations.git"
+  },
+  "keywords": [
+    "database",
+    "migrate",
+    "migrations",
+    "versioning"
+  ],
+  "author": "Vinícius Silva <vinicius.ls@live.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viniciusls/nodejs-db-migrations/issues"
+  },
+  "homepage": "https://github.com/viniciusls/nodejs-db-migrations#readme"
+}
