@@ -25,5 +25,9 @@
   "dependencies": {
     "dotenv": "^6.2.0",
     "mysql": "^2.16.0"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=6.0.0"
   }
 }
