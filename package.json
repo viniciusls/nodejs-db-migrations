@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/viniciusls/nodejs-db-migrations/issues"
   },
-  "homepage": "https://github.com/viniciusls/nodejs-db-migrations#readme"
+  "homepage": "https://github.com/viniciusls/nodejs-db-migrations#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0"
+  }
 }
