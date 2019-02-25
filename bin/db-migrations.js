@@ -1,3 +1,4 @@
+const db_migrations = require('../index');
 const program = require('commander');
 
 program
@@ -9,7 +10,7 @@ program
   .alias('h')
   .description('Help')
   .action(() => {
-    console.log('Under development');
+    db_migrations.help();
   });
 
 program
@@ -17,7 +18,7 @@ program
   .alias('m')
   .description('Execute pending migration(s)')
   .action(() => {
-    console.log('Under development');
+    db_migrations.migrate();
   });
 
 program
@@ -25,7 +26,7 @@ program
   .alias('rf')
   .description('Rollback all the database and re-run all the migrations')
   .action(() => {
-    console.log('Under development');
+    db_migrations.refresh();
   });
 
 program
@@ -33,7 +34,7 @@ program
   .alias('re')
   .description('Rollback all migrations executed')
   .action(() => {
-    console.log('Under development');
+    db_migrations.reset();
   });
 
 program
@@ -41,7 +42,7 @@ program
   .alias('r')
   .description('Rollback the last migration executed')
   .action(() => {
-    console.log('Under development');
+    db_migrations.rollback();
   });
 
 program.parse(process.argv);
