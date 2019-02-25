@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/viniciusls/nodejs-db-migrations#readme",
   "dependencies": {
+    "commander": "^2.19.0",
     "dotenv": "^6.2.0",
     "mysql": "^2.16.0"
   },
