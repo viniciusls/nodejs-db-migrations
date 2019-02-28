@@ -2,7 +2,7 @@ const db_migrations = require('../index');
 const program = require('commander');
 
 program
-  .version('0.0.1')
+  .version('0.0.3')
   .description('NodeJS package to generate and run database migrations');
 
 program
@@ -32,7 +32,7 @@ program
 program
   .command('new [name]')
   .alias('n')
-  .description('Create a new migration. If a name is specified the migrate will follow the convention <generated_id>_<name>')
+  .description('Create a new migration. If a name is specified the migrate will follow the convention <generated_id>_<name>.js')
   .action((name) => {
     db_migrations.new(name);
   });
