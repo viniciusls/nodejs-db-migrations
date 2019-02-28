@@ -5,7 +5,7 @@ module.exports.help = () => {
   console.log('Under development');
 };
 
-module.exports.install = () => {
+module.exports.install = async () => {
   console.log('Creating migrations structure');
 
   if(!fs.existsSync('./migrations')) {
@@ -20,9 +20,7 @@ module.exports.install = () => {
 
   const dbAdapter = require(__dirname + '/lib/adapters/' + process.env.database_type);
 
-  dbAdapter.install();
-
-  console.log('Under development');
+  await dbAdapter.install();
 };
 
 module.exports.migrate = () => {

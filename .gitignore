@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# migrations folder - should be present in users project not inside this module folder
+migrations/
