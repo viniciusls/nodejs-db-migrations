@@ -37,8 +37,16 @@ module.exports.refresh = () => {
   console.log('Under development');
 };
 
-module.exports.reset = () => {
-  console.log('Under development');
+module.exports.reset = async () => {
+  console.log('Rolling back all migrations');
+
+  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
+    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+  }
+
+  const dbAdapter = require(dbAdapterPath);
+
+  await dbAdapter.reset();
 };
 
 module.exports.rollback = async () => {
