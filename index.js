@@ -25,16 +25,28 @@ module.exports.install = async () => {
   await dbAdapter.install();
 };
 
-module.exports.migrate = () => {
-  console.log('Under development');
+module.exports.migrate = async () => {
+  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
+    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+  }
+
+  const dbAdapter = require(dbAdapterPath);
+
+  await dbAdapter.migrate();
 };
 
 module.exports.new = (name) => {
   console.log('Under development');
 };
 
-module.exports.refresh = () => {
-  console.log('Under development');
+module.exports.refresh = async () => {
+  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
+    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+  }
+
+  const dbAdapter = require(dbAdapterPath);
+
+  await dbAdapter.refresh();
 };
 
 module.exports.reset = async () => {
