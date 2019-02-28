@@ -2,7 +2,15 @@ module.exports.help = () => {
   console.log('Under development');
 };
 
+module.exports.install = () => {
+  console.log('Under development');
+};
+
 module.exports.migrate = () => {
+  console.log('Under development');
+};
+
+module.exports.new = (name) => {
   console.log('Under development');
 };
 

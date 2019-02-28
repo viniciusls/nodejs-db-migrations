@@ -14,11 +14,27 @@ program
   });
 
 program
+  .command('install')
+  .alias('i')
+  .description('Create the package needed migrations and execute then')
+  .action(() => {
+    db_migrations.install();
+  });
+
+program
   .command('migrate')
   .alias('m')
   .description('Execute pending migration(s)')
   .action(() => {
     db_migrations.migrate();
+  });
+
+program
+  .command('new [name]')
+  .alias('n')
+  .description('Create a new migration. If a name is specified the migrate will follow the convention <generated_id>_<name>')
+  .action((name) => {
+    db_migrations.new(name);
   });
 
 program
