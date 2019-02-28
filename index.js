@@ -14,11 +14,13 @@ module.exports.install = () => {
       console.log('Migrations folder created at ./migrations');
   }
 
-  if(!fs.existsSync(__dirname + '/lib/adapters/' + process.env.database.type)) {
-    throw Error('Adapter for ' + process.env.database.type + ' not found! Please check your database type config on .env.');
+  if(!fs.existsSync(__dirname + '/lib/adapters/' + process.env.database_type + '.js')) {
+    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
   }
 
-  const dbAdapter = require(__dirname + '/lib/adapters/' + process.env.database.type);
+  const dbAdapter = require(__dirname + '/lib/adapters/' + process.env.database_type);
+
+  dbAdapter.install();
 
   console.log('Under development');
 };
