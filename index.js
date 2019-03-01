@@ -35,8 +35,14 @@ module.exports.migrate = async () => {
   await dbAdapter.migrate();
 };
 
-module.exports.new = (name) => {
-  console.log('Under development');
+module.exports.new = async (name) => {
+  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
+    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+  }
+
+  const dbAdapter = require(dbAdapterPath);
+
+  await dbAdapter.new(name);
 };
 
 module.exports.refresh = async () => {
