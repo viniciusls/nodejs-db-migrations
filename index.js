@@ -4,9 +4,36 @@ class DbMigrations {
 
     this.fs = require('fs');
 
-    this.dbAdapterPath = __dirname + '/lib/adapters/' + process.env.database_type;
+    const dbAdapterType = process.env.database_type;
 
-    this.dbAdapter = require(this.dbAdapterPath);
+    if (!dbAdapterType) {
+      throw Error('Adapter not defined in .env');
+    }
+
+    // this.dbAdapterPath = __dirname + '/lib/adapters/' + dbAdapterType;
+    //
+    // this.dbAdapter = require(this.dbAdapterPath);
+    //
+    // const dbAdapterClassName = dbAdapterType.charAt(0).toUpperCase() + dbAdapterType.slice(1) + 'Adapter';
+    //
+    // this.dbAdapter = new dbAdapterClassName();
+    //
+    // if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+    //   throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    // }
+
+    switch (dbAdapterType.toLowerCase()) {
+      case 'mysql':
+        const { MysqlAdapter } = require(__dirname + '/lib/adapters/' + dbAdapterType);
+
+        this.dbAdapter = new MysqlAdapter();
+
+        break;
+      case 'db2':
+        break;
+      default:
+        throw Error('Adapter not found. Check the database_type on .env');
+    }
   }
 
   help() {
@@ -22,53 +49,29 @@ class DbMigrations {
       console.log('Migrations folder created at ./migrations');
     }
 
-    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    }
-    
     await this.dbAdapter.install();
   };
 
   async migrate() {
-    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    }
-
     await this.dbAdapter.migrate();
   };
 
   async new(name) {
-    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    }
-
     await this.dbAdapter.new(name);
   };
 
   async refresh() {
-    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    }
-
     await this.dbAdapter.refresh();
   };
 
   async reset() {
     console.log('Rolling back all migrations');
 
-    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    }
-
     await this.dbAdapter.reset();
   };
 
   async rollback() {
     console.log('Rolling back last migration');
-
-    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    }
 
     await this.dbAdapter.rollback();
   };
