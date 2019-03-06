@@ -10,6 +10,7 @@ class DbMigrations {
       throw Error('Adapter not defined in .env');
     }
 
+    // TODO: Find a way to instantiate dynamically the adapter class w/out the switch
     // this.dbAdapterPath = __dirname + '/lib/adapters/' + dbAdapterType;
     //
     // this.dbAdapter = require(this.dbAdapterPath);
