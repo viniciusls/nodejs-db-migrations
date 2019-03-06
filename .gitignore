@@ -62,3 +62,6 @@ typings/
 
 # migrations folder - should be present in users project not inside this module folder
 migrations/
+
+# IDEs
+.idea/
