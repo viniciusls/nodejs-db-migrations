@@ -1,81 +1,78 @@
-require('dotenv').load();
-const fs = require('fs');
+class DbMigrations {
+  constructor() {
+    require('dotenv').load();
 
-const dbAdapterPath = __dirname + '/lib/adapters/' + process.env.database_type;
+    this.fs = require('fs');
 
-module.exports.help = () => {
-  console.log('Under development');
-};
+    this.dbAdapterPath = __dirname + '/lib/adapters/' + process.env.database_type;
 
-module.exports.install = async () => {
-  console.log('Creating migrations structure');
+    this.dbAdapter = require(this.dbAdapterPath);
+  }
 
-  if(!fs.existsSync('./migrations')) {
-      fs.mkdirSync('./migrations');
+  help() {
+    console.log('Under development');
+  };
+
+  async install() {
+    console.log('Creating migrations structure');
+
+    if (!this.fs.existsSync('./migrations')) {
+      this.fs.mkdirSync('./migrations');
 
       console.log('Migrations folder created at ./migrations');
-  }
+    }
 
-  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
-    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-  }
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    }
+    
+    await this.dbAdapter.install();
+  };
 
-  const dbAdapter = require(dbAdapterPath);
+  async migrate() {
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    }
 
-  await dbAdapter.install();
-};
+    await this.dbAdapter.migrate();
+  };
 
-module.exports.migrate = async () => {
-  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
-    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-  }
+  async new(name) {
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    }
 
-  const dbAdapter = require(dbAdapterPath);
+    await this.dbAdapter.new(name);
+  };
 
-  await dbAdapter.migrate();
-};
+  async refresh() {
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    }
 
-module.exports.new = async (name) => {
-  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
-    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-  }
+    await this.dbAdapter.refresh();
+  };
 
-  const dbAdapter = require(dbAdapterPath);
+  async reset() {
+    console.log('Rolling back all migrations');
 
-  await dbAdapter.new(name);
-};
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    }
 
-module.exports.refresh = async () => {
-  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
-    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-  }
+    await this.dbAdapter.reset();
+  };
 
-  const dbAdapter = require(dbAdapterPath);
+  async rollback() {
+    console.log('Rolling back last migration');
 
-  await dbAdapter.refresh();
-};
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
+    }
 
-module.exports.reset = async () => {
-  console.log('Rolling back all migrations');
+    await this.dbAdapter.rollback();
+  };
+}
 
-  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
-    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-  }
-
-  const dbAdapter = require(dbAdapterPath);
-
-  await dbAdapter.reset();
-};
-
-module.exports.rollback = async () => {
-  console.log('Rolling back last migration');
-
-  if(!fs.existsSync(`${dbAdapterPath}.js`)) {
-    throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-  }
-
-  const dbAdapter = require(dbAdapterPath);
-
-  await dbAdapter.rollback();
-};
+module.exports = { DbMigrations };
 

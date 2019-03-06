@@ -1,5 +1,7 @@
-const db_migrations = require('../index');
+const { DbMigrations } = require('../index');
 const program = require('commander');
+
+const db_migrations = new DbMigrations();
 
 program
   .version('0.0.3')
