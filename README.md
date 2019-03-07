@@ -8,6 +8,19 @@
 NodeJS package to generate and run database migrations
 
 ## Summary
+- [Getting started](https://github.com/viniciusls/nodejs-db-migrations#getting-started)
+- [Supported databases](https://github.com/viniciusls/nodejs-db-migrations#supported-databases)
+- [Available methods](https://github.com/viniciusls/nodejs-db-migrations#available-methods)
+  - [help](https://github.com/viniciusls/nodejs-db-migrations#help)
+  - [install](https://github.com/viniciusls/nodejs-db-migrations#install)
+  - [migrate](https://github.com/viniciusls/nodejs-db-migrations#migrate)
+  - [new](https://github.com/viniciusls/nodejs-db-migrations#new)
+  - [refresh](https://github.com/viniciusls/nodejs-db-migrations#refresh)
+  - [reset](https://github.com/viniciusls/nodejs-db-migrations#reset)
+  - [rollback](https://github.com/viniciusls/nodejs-db-migrations#rollback)
+  - [version](https://github.com/viniciusls/nodejs-db-migrations#version)
+- [Contributing](https://github.com/viniciusls/nodejs-db-migrations#contributing)
+- [Need help](https://github.com/viniciusls/nodejs-db-migrations#need-help)
 
 ## Getting started
 
@@ -57,3 +70,4 @@ Show the current package version
 ## Contributing
 
 ## Need help?
+If you need more help, feel free to open an issue here or send an email to [vinicius.ls@live.com](mailto:vinicius.ls@live.com).
