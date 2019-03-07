@@ -10,35 +10,21 @@ class DbMigrations {
       throw Error('Adapter not defined in .env');
     }
 
-    // TODO: Find a way to instantiate dynamically the adapter class w/out the switch
-    // this.dbAdapterPath = __dirname + '/lib/adapters/' + dbAdapterType;
-    //
-    // this.dbAdapter = require(this.dbAdapterPath);
-    //
-    // const dbAdapterClassName = dbAdapterType.charAt(0).toUpperCase() + dbAdapterType.slice(1) + 'Adapter';
-    //
-    // this.dbAdapter = new dbAdapterClassName();
-    //
-    // if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
-    //   throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
-    // }
+    this.dbAdapterPath = __dirname + '/lib/adapters/' + dbAdapterType;
 
-    switch (dbAdapterType.toLowerCase()) {
-      case 'mysql':
-        const { MysqlAdapter } = require(__dirname + '/lib/adapters/' + dbAdapterType);
-
-        this.dbAdapter = new MysqlAdapter();
-
-        break;
-      case 'db2':
-        break;
-      default:
-        throw Error('Adapter not found. Check the database_type on .env');
+    if (!this.fs.existsSync(`${this.dbAdapterPath}.js`)) {
+      throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
     }
+
+    const dbAdapterClassName = dbAdapterType.charAt(0).toUpperCase() + dbAdapterType.slice(1) + 'Adapter';
+
+    const { DynamicAdapter } = require('./lib/adapters/index');
+
+    this.dbAdapter = new DynamicAdapter(dbAdapterClassName);
   }
 
   help() {
-    console.log('Under development');
+    console.log('You can ask for help typing -h or --help or, if it doesn\'t help, you can open an issue on GitHub or send an email to vinicius.ls@live.com.');
   };
 
   async install() {
