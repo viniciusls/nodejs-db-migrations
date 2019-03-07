@@ -16,11 +16,11 @@ class DbMigrations {
       throw Error('Adapter for ' + process.env.database_type + ' not found! Please check your database type config on .env.');
     }
 
-    const dbAdapterClassName = dbAdapterType.charAt(0).toUpperCase() + dbAdapterType.slice(1) + 'Adapter';
+    const dbAdapterClassName = dbAdapterType.charAt(0).toUpperCase() + dbAdapterType.toLowerCase().slice(1) + 'Adapter';
 
-    const { DynamicAdapter } = require('./lib/adapters/index');
+    const dbAdapterClass = require(this.dbAdapterPath)[dbAdapterClassName];
 
-    this.dbAdapter = new DynamicAdapter(dbAdapterClassName);
+    this.dbAdapter = new dbAdapterClass();
   }
 
   help() {
